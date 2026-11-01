@@ -119,6 +119,8 @@ export default {
     return {
       bodyClass: 'page-home',
       scripts: ['assets/city.js'],
+      // The still image is the hero's largest element on phones: let the browser fetch it early.
+      head: html`<link rel="preload" as="image" href="${ctx.asset('city/still.webp')}" fetchpriority="high">`,
       body: html`${hero(ctx)}
 ${newest(ctx)}
 ${tenantHelp(ctx)}
