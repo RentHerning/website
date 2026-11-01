@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Renders still images of both city versions (public/city/still-a.webp, still-b.webp).
+// Renders a still image of the city (public/city/still.webp).
 // They're shown while three.js loads, and instead of the live scene on devices
 // without WebGL or with little memory / data-saver on.
 //
@@ -21,18 +21,13 @@ const page = await browser.newPage({ viewport: { width: 1600, height: 1000 }, de
 await page.emulateMedia({ reducedMotion: 'reduce' });
 await mkdir(join(ROOT, 'public/city'), { recursive: true });
 
-for (const version of ['a', 'b']) {
-  await page.goto(`${base}?3d&city=${version}`);
+{
+  await page.goto(`${base}?3d`);
   await page.waitForSelector('[data-city].is-ready', { timeout: 30_000 });
-  const actual = await page.$eval('[data-city]', (el) => el.dataset.version);
-  if (actual !== version) {
-    console.warn(`Version ${version} not available (got ${actual}), skipping.`);
-    continue;
-  }
   // Only the city: transparent background, no pins, no fade mask.
   await page.addStyleTag({
     content: `html, body, .hero { background: transparent !important; }
-      .city-pins, .city-ui, .hero__scene-fallback { display: none !important; }
+      .city-overlay, .city-credit, .hero__scene-fallback { display: none !important; }
       .hero__scene { mask-image: none !important; }`,
   });
   await page.waitForTimeout(500);
@@ -48,7 +43,7 @@ for (const version of ['a', 'b']) {
     canvas.getContext('2d').drawImage(img, 0, 0);
     return canvas.toDataURL('image/webp', 0.82);
   }, png.toString('base64'));
-  const file = join(ROOT, `public/city/still-${version}.webp`);
+  const file = join(ROOT, 'public/city/still.webp');
   await writeFile(file, Buffer.from(dataUrl.split(',')[1], 'base64'));
   console.log(`Wrote ${file} (${Math.round((dataUrl.length * 0.75) / 1024)} KB)`);
 }

@@ -62,8 +62,10 @@ const P = {
     flats: ['#b65a42', '#d8c6a2', '#efe8da', '#9c4a37', '#e4c870', '#8197ab'].map(hex),
     work: ['#8197ab', '#efe8da', '#d8c6a2', '#f4f1ea', '#5d7f6c'].map(hex),
     small: ['#d8c6a2', '#efe8da', '#b9b3a7'].map(hex),
-    church: hex('#b65a42'),
+    church: hex('#a9503a'),
+    station: hex('#e4c870'),
   },
+  copper: hex('#6e9a87'),
 };
 
 // ---------------------------------------------------------------- helpers
@@ -217,7 +219,7 @@ function styleFor(el, footprint) {
   } else if (['industrial', 'warehouse', 'sports_hall', 'sports_centre', 'supermarket'].includes(type)) {
     floors = 2.2;
     walls = P.walls.work;
-  } else if (type === 'church' || t.amenity === 'place_of_worship') {
+  } else if (['church', 'cathedral', 'chapel'].includes(type) || t.amenity === 'place_of_worship') {
     floors = 4;
     walls = [P.walls.church];
   } else {
@@ -298,6 +300,7 @@ export function buildModel(osm) {
   }
 
   // Buildings.
+  const churches = [];
   let count = 0;
   let maxHeight = 0;
   for (const el of els.filter((e) => e.tags.building && e.tags.building !== 'no')) {
@@ -309,6 +312,15 @@ export function buildModel(osm) {
     const s = styleFor(el, pts);
     const [cx, cz] = pts.reduce(([ax, az], [x, z]) => [ax + x / pts.length, az + z / pts.length], [0, 0]);
     const delay = Math.min(1, Math.hypot(cx, cz) / (RADIUS * 1.1)) * 0.85 + rand(el.id, 9) * 0.12;
+    const isChurch = ['church', 'cathedral', 'chapel'].includes(el.tags.building) || el.tags.amenity === 'place_of_worship';
+    if (isChurch && Math.abs(area(pts)) > 150) {
+      addChurch(b, pts, cx, cz, delay);
+      maxHeight = Math.max(maxHeight, 48);
+      churches.push(el.tags.name ?? 'church');
+      count += 1;
+      continue;
+    }
+    if (el.tags.building === 'train_station' || el.tags.railway === 'station') s.wall = P.walls.station;
     b.prismShared(pts, 0.4, s.h, { wall: s.wall, roof: P.roofFlat, windows: s.windows, delay });
     if (s.gable) {
       // Oriented rectangle → gable along the long side.
@@ -344,7 +356,108 @@ export function buildModel(osm) {
     }
   }
 
-  return { builder: b, stats: { buildings: count, trees, maxHeight } };
+  // Trees along the pedestrian streets (Bredgade etc.), alternating sides.
+  for (const el of els.filter((e) => e.tags.highway === 'pedestrian' && !e.tags.area)) {
+    for (const run of clipLine(el.geometry.map(project), RADIUS - 6)) {
+      let carry = 0;
+      for (let i = 0; i < run.length - 1; i += 1) {
+        const [x1, z1] = run[i];
+        const [x2, z2] = run[i + 1];
+        const len = Math.hypot(x2 - x1, z2 - z1);
+        for (let d = 14 - carry; d < len; d += 14) {
+          const t = d / len;
+          const side = (Math.round(d) % 28 < 14 ? 1 : -1) * 3.6;
+          const nx = (-(z2 - z1) / len) * side;
+          const nz = ((x2 - x1) / len) * side;
+          const x = x1 + (x2 - x1) * t + nx;
+          const z = z1 + (z2 - z1) * t + nz;
+          b.box(x, z, 0.6, 0.6, 2.4, { wall: P.trunk, roof: P.trunk, windows: 0 }, 0, 0.3);
+          b.blob(x, z, 2.4, 4.2, pick(P.trees, el.id, Math.round(d)));
+          trees += 1;
+        }
+        carry = (len + carry) % 14;
+      }
+    }
+  }
+
+  // Data for the browser: roads for cars, rail for the train, street labels.
+  const q = (v) => Math.round(v * 10); // decimetres
+  const drivable = /^(primary|secondary|tertiary|residential|unclassified|living_street)$/;
+  const roads = [];
+  for (const el of els.filter((e) => drivable.test(e.tags.highway ?? '') && e.tags.area !== 'yes')) {
+    const major = /^(primary|secondary|tertiary)$/.test(el.tags.highway);
+    for (const run of clipLine(el.geometry.map(project), RADIUS - 4)) roads.push([major ? 1 : 0, run.flatMap(([x, z]) => [q(x), q(z)])]);
+  }
+  const rail = [];
+  for (const el of els.filter((e) => e.tags.railway === 'rail')) {
+    for (const run of clipLine(el.geometry.map(project), RADIUS + 6)) rail.push(run.flatMap(([x, z]) => [q(x), q(z)]));
+  }
+  // Street labels: pedestrian streets first, then the bigger roads; one label per name.
+  const byName = new Map();
+  for (const el of els.filter((e) => e.tags.highway && e.tags.name)) {
+    for (const run of clipLine(el.geometry.map(project), RADIUS * 0.82)) {
+      let len = 0;
+      for (let i = 0; i < run.length - 1; i += 1) len += Math.hypot(run[i + 1][0] - run[i][0], run[i + 1][1] - run[i][1]);
+      const rank = { pedestrian: 5, primary: 4, secondary: 3, tertiary: 2 }[el.tags.highway] ?? (el.tags.name === 'Torvet' ? 6 : 0);
+      const prev = byName.get(el.tags.name);
+      const total = (prev?.total ?? 0) + len;
+      if (!prev || len > prev.len) byName.set(el.tags.name, { name: el.tags.name, run, len, rank, total });
+      else prev.total = total;
+    }
+  }
+  const labels = [...byName.values()]
+    .filter((l) => l.rank > 0 || l.name === 'Torvet')
+    .sort((a, b2) => b2.rank - a.rank || b2.total - a.total)
+    .slice(0, 7)
+    .map((l) => {
+      const mid = l.run[Math.floor(l.run.length / 2)];
+      return { name: l.name, x: q(mid[0]), z: q(mid[1]) };
+    });
+
+  return { builder: b, stats: { buildings: count, trees, maxHeight, churches }, extras: { roads, rail, labels } };
+}
+
+/** Church: brick nave with a steep copper roof and a tower with a spire at one end. */
+function addChurch(b, pts, cx, cz, delay) {
+  // Principal axis of the footprint (works for non-rectangular plans too).
+  let sxx = 0;
+  let szz = 0;
+  let sxz = 0;
+  for (const [x, z] of pts) {
+    sxx += (x - cx) ** 2;
+    szz += (z - cz) ** 2;
+    sxz += (x - cx) * (z - cz);
+  }
+  const rot = 0.5 * Math.atan2(2 * sxz, sxx - szz);
+  const ux = Math.cos(rot);
+  const uz = Math.sin(rot);
+  let minU = Infinity;
+  let maxU = -Infinity;
+  let minV = Infinity;
+  let maxV = -Infinity;
+  for (const [x, z] of pts) {
+    const u = (x - cx) * ux + (z - cz) * uz;
+    const v = -(x - cx) * uz + (z - cz) * ux;
+    minU = Math.min(minU, u);
+    maxU = Math.max(maxU, u);
+    minV = Math.min(minV, v);
+    maxV = Math.max(maxV, v);
+  }
+  const length = maxU - minU;
+  const width = Math.min(maxV - minV, 16);
+  const mu = (minU + maxU) / 2;
+  const mx = cx + ux * mu;
+  const mz = cz + uz * mu;
+  const wallH = 11 * VERTICAL;
+  b.box(mx, mz, length * 0.92, width, wallH, { wall: P.walls.church, roof: P.walls.church, windows: 0, delay }, rot, 0.4);
+  b.gable(mx, mz, length * 0.92, width, wallH + 0.4, width * 0.7, P.copper, rot, delay, P.walls.church);
+  // Tower at the west-most end.
+  const end = ux < 0 ? maxU : minU;
+  const tx = cx + ux * (end + Math.sign(mu - end) * 4);
+  const tz = cz + uz * (end + Math.sign(mu - end) * 4);
+  const towerH = 26 * VERTICAL;
+  b.box(tx, tz, 7.5, 7.5, towerH, { wall: P.walls.church, roof: P.walls.church, windows: 0, delay }, rot, 0.4);
+  b.cone(tx, tz, 5.6, towerH + 0.4, 16 * VERTICAL, P.copper, 4, delay);
 }
 
 function pointInPolygon([x, z], pts) {
@@ -370,6 +483,9 @@ export function encode(builder, meta) {
       radius: RADIUS + 8,
       maxHeight: meta.maxHeight,
       center: CENTER,
+      roads: meta.extras.roads,
+      rail: meta.extras.rail,
+      labels: meta.extras.labels,
       attribution: '© OpenStreetMap contributors (ODbL)',
       builtAt: new Date().toISOString(),
     }),
@@ -396,13 +512,14 @@ export function encode(builder, meta) {
 async function main() {
   const i = process.argv.indexOf('--osm');
   const osm = i > -1 ? JSON.parse(await readFile(process.argv[i + 1], 'utf8')) : await fetchOsm();
-  const { builder, stats } = buildModel(osm);
-  const buffer = encode(builder, stats);
+  const { builder, stats, extras } = buildModel(osm);
+  const buffer = encode(builder, { ...stats, extras });
   await mkdir(dirname(OUT), { recursive: true });
   await writeFile(OUT, buffer);
   console.log(
     `Wrote ${OUT} – ${(buffer.length / 1024).toFixed(0)} KB, ${stats.buildings} buildings, ${stats.trees} trees, ${builder.vertexCount} vertices, max height ${stats.maxHeight.toFixed(1)} m`,
   );
+  console.log(`Churches: ${stats.churches.join(', ') || 'none'}; roads: ${extras.roads.length}; rail: ${extras.rail.length}; labels: ${extras.labels.map((l) => l.name).join(', ')}`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

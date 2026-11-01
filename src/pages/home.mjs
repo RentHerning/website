@@ -13,17 +13,10 @@ function hero(ctx) {
       data-listings-url="${ctx.asset('data/listings.json')}"
       data-model-url="${ctx.asset('city/herning.bin')}"
       data-listing-href="${ctx.link('listing', { id: '__ID__' })}"
-      data-per-month="${t('listings.perMonth')}"
-      data-default-version="a">
-      <div class="hero__scene-fallback" style="--still-a: url('${ctx.asset('city/still-a.webp')}'); --still-b: url('${ctx.asset('city/still-b.webp')}')"></div>
+      data-per-month="${t('listings.perMonth')}">
+      <div class="hero__scene-fallback" style="--still: url('${ctx.asset('city/still.webp')}')"></div>
     </div>
-    <div class="city-ui">
-      <div class="city-switch" role="group" aria-label="${t('home.citySwitch')}" data-city-switch hidden>
-        <button type="button" data-version="a" aria-pressed="true">${t('home.cityA')}</button>
-        <button type="button" data-version="b" aria-pressed="false">${t('home.cityB')}</button>
-      </div>
-      <p class="city-credit" data-city-credit hidden>${t('home.cityCredit')} <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a></p>
-    </div>
+    <p class="city-credit">${t('home.cityCredit')} <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a></p>
   </div>
   <div class="container hero__inner">
     <div class="hero__text">
