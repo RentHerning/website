@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "node build/dev.mjs",
     "build": "node build/build.mjs",
-    "build:pages": "SITE_BASE=/website/ node build/build.mjs"
+    "build:pages": "SITE_BASE=/website/ node build/build.mjs",
+    "scrape": "node scripts/scrape.mjs",
+    "test": "node --test 'test/**/*.test.mjs'"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",
