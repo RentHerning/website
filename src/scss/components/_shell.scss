@@ -1,0 +1,99 @@
+@use '../base/tokens' as *;
+
+// App-like frame: the sticky header and a slim bar pinned to the bottom of the
+// screen; the page content (and the full footer) scroll between them.
+// The page keeps normal window scrolling, so the phone address bar still
+// collapses, anchors and "back" scroll positions work as usual.
+:root {
+  --bar-h: 2.75rem;
+}
+
+body {
+  padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
+}
+
+// The header now frames the page at all times.
+.site-header {
+  border-bottom-color: var(--line);
+}
+
+.bottom-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 45;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgb(24 41 31 / 96%);
+  backdrop-filter: saturate(1.3) blur(10px);
+  color: var(--green-100);
+  font-size: 0.825rem;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    min-height: var(--bar-h);
+  }
+  &__copy {
+    margin: 0;
+    white-space: nowrap;
+    color: var(--green-200);
+  }
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-height: 2.25rem;
+      padding: 0 var(--s-3);
+      border-radius: 999px;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      &:hover {
+        background: rgb(255 255 255 / 10%);
+        text-decoration: none;
+      }
+      &:focus-visible {
+        box-shadow: 0 0 0 2px var(--green-200);
+      }
+    }
+  }
+  &__urgent {
+    color: #ffd2cb !important;
+    font-weight: 600;
+  }
+
+  // Phones: drop the copyright (it's in the full footer) and Boligportal.
+  @media (max-width: #{$bp-sm - 0.01em}) {
+    &__copy,
+    &__wide {
+      display: none;
+    }
+    &__inner {
+      justify-content: center;
+    }
+    &__links a {
+      padding: 0 var(--s-2);
+    }
+  }
+}
+
+// Things that sit at the bottom of the screen must clear the bar.
+.contact-bar {
+  bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
+}
+#rita-chat {
+  --rita-bottom: calc(var(--bar-h) + 1rem);
+}
+@media (max-width: #{$bp-lg - 0.01em}) {
+  body.page-listing #rita-chat {
+    --rita-bottom: calc(var(--bar-h) + 5.25rem);
+  }
+}

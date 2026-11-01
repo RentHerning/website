@@ -43,8 +43,27 @@ export function footer(ctx) {
     </div>
   </div>
   <div class="container site-footer__bottom">
-    <p>© ${year} ${site.name}. ${t('footer.rights')}</p>
     <p>${t('footer.listingsSource')}</p>
   </div>
-</footer>`;
+</footer>
+${bottomBar(ctx, year)}`;
+}
+
+/**
+ * Slim bar pinned to the bottom of the screen. Together with the sticky header
+ * it frames the page, while the content (and the full footer) scroll between them.
+ */
+function bottomBar(ctx, year) {
+  const { t, site } = ctx;
+  return html`<nav class="bottom-bar" aria-label="${t('bar.label')}">
+  <div class="container bottom-bar__inner">
+    <p class="bottom-bar__copy">© ${year} ${site.name}</p>
+    <ul class="bottom-bar__links">
+      <li><a class="bottom-bar__urgent" href="${ctx.link('help')}#akut">${icon('siren', { className: 'icon--sm' })} ${t('bar.emergency')}</a></li>
+      <li><a href="${site.documents.houseRules}">${t('bar.houseRules')}</a></li>
+      <li><a href="${site.documents.privacy}">${t('bar.privacy')}</a></li>
+      <li class="bottom-bar__wide"><a href="${site.boligportal.companyPage}" rel="noopener">Boligportal</a></li>
+    </ul>
+  </div>
+</nav>`;
 }
