@@ -1,0 +1,57 @@
+name: Build 3D city
+
+# Builds the real-Herning model from OpenStreetMap (public/city/herning.bin)
+# and renders still images of both versions. Runs when the city code changes,
+# or on demand (e.g. once a year to pick up new buildings).
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/city/**'
+      - 'src/js/city/**'
+      - '.github/workflows/build-city.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-city-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build real-Herning model from OpenStreetMap
+        run: node scripts/city/build-herning.mjs
+
+      - name: Render still images
+        run: |
+          npm install --no-save playwright@1
+          npx playwright install --with-deps chromium
+          npm run build
+          npx --yes http-server@14 dist -p 5180 -s &
+          sleep 2
+          node scripts/city/render-stills.mjs http://localhost:5180/
+
+      - name: Commit model and stills
+        run: |
+          git add public/city
+          if git diff --cached --quiet; then
+            echo "City unchanged."
+            exit 0
+          fi
+          git config user.name "rent-herning-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Rebuild 3D city model and stills"
+          git push

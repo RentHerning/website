@@ -39,3 +39,17 @@ npm test                             # parser tests against saved fixtures
 The file is only rewritten when a listing actually changed, so the scheduled job doesn't create empty commits. If the page can't be read, the script exits with an error and leaves the existing file alone, so a blocked request never empties the site. Street numbers are deliberately not stored; the site shows the street name and area, as Boligportal's own cards do.
 
 `.github/workflows/update-listings.yml` runs the script every 6 hours (and on demand from the Actions tab). It tries plain HTTP first and falls back to Playwright, validates the result with `scripts/validate-listings.mjs`, and commits `data/listings.json` if it changed.
+
+## 3D city on the home page
+
+The hero shows a low-poly city that slowly turns and can be dragged sideways. There are two versions, switchable in the hero (and with `?city=a` / `?city=b`):
+
+| | A: Stylised town | B: Real Herning |
+|---|---|---|
+| Source | Generated in the browser from a fixed seed (`src/js/city/town.js`) | OpenStreetMap, pre-built into `public/city/herning.bin` by `scripts/city/build-herning.mjs` |
+| Size | No data file | ~0.5–1 MB binary (quantised positions, shared wall vertices) |
+| Pins | Listings placed by relative position | Listings at their real location (only those inside the 560 m cut-out) |
+
+Both use one merged mesh and one material (`src/js/city/material.js`). Windows are drawn by the shader on walls, not modelled, and buildings "grow" out of the ground on load. The scene pauses when it's off-screen or the tab is hidden. With *reduce motion* switched on it shows a still frame. On devices without WebGL, with ≤2 CPU cores or ≤2 GB memory, or with data-saver on, it shows a pre-rendered image (`public/city/still-*.webp`) instead. Add `?3d` to the URL to force the live scene.
+
+`.github/workflows/build-city.yml` rebuilds the real-Herning model and both still images whenever the city code changes (or on demand from the Actions tab), and commits them. Map data © OpenStreetMap contributors (ODbL); the credit is shown on the page whenever version B is visible.
