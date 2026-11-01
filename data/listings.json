@@ -1,0 +1,749 @@
+{
+  "source": "https://www.boligportal.dk/cp/rentherning/",
+  "fetchedAt": "2026-11-01T20:28:50.757Z",
+  "count": 7,
+  "listings": [
+    {
+      "id": 5498482,
+      "url": "https://www.boligportal.dk/lejligheder/herning/56m2-2-vaer-id-5498482",
+      "title": "2- Værelses lejlighed i Herning med altan",
+      "category": "apartment",
+      "street": "H.C. Ørsteds Vej",
+      "area": null,
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.139,
+        "lng": 8.985
+      },
+      "rooms": 2,
+      "size": 56,
+      "rent": 5250,
+      "extraCosts": 550,
+      "deposit": 15750,
+      "prepaidRent": 0,
+      "availableFrom": "2027-02-01",
+      "rentalPeriod": 0,
+      "floor": 2,
+      "energyRating": null,
+      "features": {
+        "elevator": false,
+        "pet_friendly": false,
+        "furnished": false,
+        "senior_friendly": false,
+        "student_only": false,
+        "parking": true,
+        "balcony": true,
+        "shareable": false
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/771812241fa6eeb2680012dc475f99d7",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/a4f3488e2e9b24fa22127c297db7fdd2",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1df82497ec9d6c07c9a68878e126f64c",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/7587b34edb74f083ce098f4c3ad18e86",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/8b801ddf1993205ddbb5f233b08a879b",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/28c9d587075dfc94d20e4addf494db0e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/51bf2fb691da4596eb60b011dc4e7573",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/a29b2ed84e52aa2d8342d4416b07fe0a",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/79a58dff3f8a6e7b45b8724cf9e04348",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/a3a95a4bf1b81a9ceb05c5e1082b01d9",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/61ccbe0b195e662cf67f2d60d41c7b19",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/e7eeea3d501294c5d992b0f099546d4b",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/61f3c3190dc6ea473623c692c45609dd",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/64bfb11c0f4adc9c5563b2de9d9bf5fe",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/f56274afa1b4b13108c529398d82ac5a",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/f20fba45d8cf5f98bd1d226fe5b3dfe3",
+          "floorPlan": true
+        }
+      ],
+      "hasVideo": false,
+      "description": "Lejlighed til leje på H.C. Ørstedsvej i Herning\n\nLejligheden er centralt beliggende i Herning med kort afstand til indkøbsmuligheder, offentlig transport og byens øvrige faciliteter.\n\nBoligen indeholder en stor og lys stue, badeværelse, køkken samt et rummeligt soveværelse med en lille altan.\n\nLejligheden er netop blevet ledig og vil blive nymalet i hvid inden overtagelse, så den fremstår lys og indflytningsklar.\n\nTil ejendommen hører fælles vaskerum samt gode parkeringsmuligheder.\n\nKontakt os gerne, hvis du ønsker en fremvisning eller vil høre mere om lejligheden.\nTelefonen er åben på hverdage kl. 9.00 – 16.00.",
+      "advertisedAt": "2026-10-29T07:04:04.509123+00:00"
+    },
+    {
+      "id": 5414722,
+      "url": "https://www.boligportal.dk/lejligheder/herning/62m2-2-vaer-id-5414722",
+      "title": "Hyggelig 2-værelses lejlighed med egen terrasse og mulighed for husdyr – centralt i Herning",
+      "category": "apartment",
+      "street": "Grønnegade",
+      "area": null,
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.134,
+        "lng": 8.982
+      },
+      "rooms": 2,
+      "size": 62,
+      "rent": 5650,
+      "extraCosts": 600,
+      "deposit": 16500,
+      "prepaidRent": 0,
+      "availableFrom": "2027-02-01",
+      "rentalPeriod": 0,
+      "floor": 0,
+      "energyRating": null,
+      "features": {
+        "elevator": false,
+        "pet_friendly": true,
+        "furnished": false,
+        "senior_friendly": false,
+        "student_only": false,
+        "parking": true,
+        "balcony": true,
+        "shareable": false,
+        "dryer": false,
+        "dishwasher": false,
+        "washing_machine": false,
+        "electric_charging_station": false
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/323f139fd56c9edd6d6f72060b0c3e6e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/88dae650bf58407e550bdf0c000c085d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/66cc0fafe9596513e2f05709cff3d36c",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/4e32225615ea8ec314ef42c58cec94d9",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/95395f58267e01c529fe1a59316f5c8e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1674e73035b663d1b428ac06f0cf6cbc",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/060781a0a8d3a0b7755a9c6a2ead66b7",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/80ca39a8d9fbcbbe3947f9aa1e6afde0",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/c0a10966a513d0876d04c678f5f987eb",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5c974b655645fb74529e26d6a343900f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/21ebf16ec173d61deead5e52edc44dd9",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/81204af055a62ef67c02cdea5a733147",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5c3dd2be2bb5f8054905117a10ccc65e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1845fa5a64b17381b85649d4b1b8ae08",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/b24f09d2c445f35a6cf0a02d7b47b265",
+          "floorPlan": false
+        }
+      ],
+      "hasVideo": false,
+      "description": "Lys og velindrettet 2-værelses lejlighed på 62 m² udlejes med attraktiv beliggenhed i hjertet af Herning.\n\nLejligheden ligger centralt i Herning, tæt på banegården, indkøbsmuligheder, butikker og byens mange faciliteter. Her får du en dejlig bolig med kort afstand til det meste.\n\nLejligheden indeholder:\n\nEntré med adgang til boligens øvrige rum.\n\nHyggelig stue med plads til både sofa og spiseområde.\n\nSoveværelse.\n\nKøkken.\n\nBadeværelse.\n\nEget vaskerum med mulighed for installation af både vaskemaskine og tørretumbler.\n\nDerudover har lejligheden egen terrasse, hvor du kan nyde udelivet og de lune sommerdage.\n\nEjendommen har desuden fælles vaskerum, som beboerne kan benytte.\n\nLejligheden er ideel til både enlige og par, der ønsker at bo centralt med egen terrasse og gode praktiske faciliteter.\n\nMan må have et mindre og stille dyr i lejligheden.\n\nKontakt os gerne for yderligere information eller aftale om fremvisning.\n\nTelefontid kl. 9.00–16.00. Uden for telefontiden er du velkommen til at sende en SMS eller mail.",
+      "advertisedAt": "2026-10-29T07:02:19.112206+00:00"
+    },
+    {
+      "id": 2206984,
+      "url": "https://www.boligportal.dk/huse/herning/135m2-4-vaer-id-2206984",
+      "title": "Hus i Lind udlejes.",
+      "category": "house",
+      "street": "Lind Hovedgade",
+      "area": "Lind",
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.103,
+        "lng": 8.979
+      },
+      "rooms": 4,
+      "size": 135,
+      "rent": 8900,
+      "extraCosts": 0,
+      "deposit": 26700,
+      "prepaidRent": 0,
+      "availableFrom": null,
+      "rentalPeriod": 0,
+      "floor": null,
+      "energyRating": null,
+      "features": {
+        "pet_friendly": true,
+        "furnished": false,
+        "parking": true,
+        "balcony": true,
+        "shareable": false,
+        "dishwasher": true
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/cad4dee93c92e6956273312e7eb527bb",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5be86e98962a8bc5ab594f8bdd8f14bd",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/cc8abc4695cd54817e97375a90ab998f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/3a514bf88fc516bf277231aa7d5a89d1",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/be403395072f5bb5ff781a762da23d62",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/527209a64dd88ce8de381db0afbf099d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/89f046e737cf3f09b8202022b055d9b9",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/9ae865e37865adb96f78d0d241bb3beb",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/cc2079f7a608f75f98c527a076b03bda",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/b652fababefcaedfa82666d18912bb76",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/b18a8a7652eba7ccc12f1c29f67cfd01",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/c452bc15a2d73152841fb294e42eae7c",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/41b0ad2f05ac71e479c541924bc634d8",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/ccf612ef33872ae4a241f30673614e43",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/f2358b7fbea7cb391d19dc73fd291890",
+          "floorPlan": false
+        }
+      ],
+      "hasVideo": false,
+      "description": "Lyst og rummeligt hus på Lind Hovedgade– 135 m² med stor kælder, garage og have\n\nPå Lind Hovedgade udlejes dette lyse og rummelige hus på 135 m², som byder på en god og funktionel indretning, masser af plads samt hele 90 m² ekstra kælderareal.\n\nHuset fremstår lyst og venligt og har gennemgående laminatgulve i trælook, som giver boligen et pænt og ensartet udtryk.\n\nBoligen indeholder 3 gode værelser, som eksempelvis kan anvendes som soveværelse, børneværelser, kontor eller gæsteværelse. Derudover får man et stort køkken/alrum med god plads til spisebord og familiens daglige samvær. Her er gode muligheder for at skabe et hyggeligt og naturligt samlingspunkt i hjemmet.\n\nHuset har desuden en stor og rummelig stue med gode indretningsmuligheder og plads til både sofaområde og øvrigt møblement.\n\n90 m² kælder og garage\n\nEn af boligens store fordele er den tilhørende kælder på hele 90 m². Kælderen er ikke istandsat til beboelse, men giver rigtig gode muligheder for opbevaring, hobbyaktiviteter, værksted eller andre praktiske formål. Der er derfor masser af ekstra plads ud over boligens 135 m².\n\nTil ejendommen hører desuden en garage, som giver mulighed for parkering samt yderligere opbevaringsplads.\n\nStor have og mulighed for ny fliseterrasse\n\nUdendørs får man en stor og forholdsvis nem have, hvor der er god plads til både afslapning, leg, grill og hyggelige sommerdage.\n\nDen nuværende træterrasse er af ældre dato. Hvis den kommende lejer ønsker at udskifte denne med en ny fliseterrasse, er vi som udlejer villige til at betale for fliserne/materialerne, mens lejer selv står for at fjerne den eksisterende træterrasse og lægge de nye fliser.\n\nDet giver den nye lejer mulighed for selv at etablere et nyt og tidssvarende terrasseområde efter nærmere aftale med udlejer.\n\nTæt på grønne områder\n\nHuset er beliggende tæt på grønne områder, hvilket giver gode muligheder for gå- og cykelture samt et aktivt udeliv.\n\nAlt i alt får man her et lyst og rummeligt hus med god plads både inde og ude. Kombinationen af 135 m² bolig, 90 m² kælder, garage og en stor have giver rigtig mange muligheder og gør boligen særligt velegnet til familien eller lejeren, der sætter pris på god plads.\n\nHusleje: 8.900 kr. pr. måned + forbrug\nIndskud: 3 måneders husleje",
+      "advertisedAt": "2026-10-01T11:43:12.610902+00:00"
+    },
+    {
+      "id": 5306769,
+      "url": "https://www.boligportal.dk/huse/herning/104m2-4-vaer-id-5306769",
+      "title": "Hus i Herning udlejes",
+      "category": "house",
+      "street": "Ringkøbingvej",
+      "area": null,
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.135,
+        "lng": 8.935
+      },
+      "rooms": 4,
+      "size": 104,
+      "rent": 8750,
+      "extraCosts": 0,
+      "deposit": 26250,
+      "prepaidRent": 0,
+      "availableFrom": "2027-02-01",
+      "rentalPeriod": 0,
+      "floor": null,
+      "energyRating": "E",
+      "features": {
+        "elevator": false,
+        "pet_friendly": true,
+        "furnished": false,
+        "senior_friendly": false,
+        "student_only": false,
+        "parking": true,
+        "balcony": false,
+        "shareable": true,
+        "dishwasher": true
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/35c7f67960284532eb2c40427e248f0d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/65e424f6bd10315f596107f8751aa50a",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/6c87cf6a8e122d745f5e790726d17531",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/0dd16e16571eaf9f9d42bd16959b0f2f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/355bb3089d0bb1c511333a29987c4b80",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5a9e1004d6f5e9854c25d76914218be2",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/e57d63df750f8ef255b47c5679011f9d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/c555d3b9d85194de1b266c62ac9cb19a",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/81ffdc35d931a3eef342953e3d414586",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/7d09fc6693179fcd04178231b0e2293f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/7fcfb17f589b87db755abd7f5785ef31",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/06bfd98bafd5bb95120006d68bbb8847",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1c0a7938a979e066881b321467521d5a",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/58f911f073a87758bed54c0d1e4bbef3",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/607fd790cc368a29ab9c0fb5851e5449",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/59ae9300199fd2844d43253975166551",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/37070c411c5b73488c4cc9f050684f21",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/76d7529090f7b24ddc5f6b031d54955e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/74b1e7b3c11da7b6530174d6d5f0d6d6",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/765cf6a0915f37ebbe8bee445031ecee",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/8f283d8d7ff588507e751e2f6e6fd4c1",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/2d544776abac051f458e9ee57ec622f9",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/83dbee325b422529089ef12cd463d95e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/20c9b7b98b4f53bab5c066191546a2dd",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/3947b343880cbd9b8a46332c2da51567",
+          "floorPlan": false
+        }
+      ],
+      "hasVideo": false,
+      "description": "Hus med stor haves i Herning udlejes\n\nHuset indeholder i stue etagen 2 værelser, badeværelse, entre, stort køkken og 2 stuer.\nFra stuen er der udgang til en havestue.\n\nI kælder er der et værelse, et badeværelse og et vaskerum. derudover er der flere rum som kan bruges til opbevaring \nKælderen er ikke istandsat\n\nForan huset er der gode parkeringsforhold og bag huset er der lille værksted samt flere skure i haven.\n\nKontakt os hvis I ønsker en fremvisning\n\nTlf tid \nMandag til fredag 9-16",
+      "advertisedAt": "2026-09-17T06:44:11.908318+00:00"
+    },
+    {
+      "id": 5541686,
+      "url": "https://www.boligportal.dk/r%C3%A6kkehuse/herning/40m2-2-vaer-id-5541686",
+      "title": "Lille rækkehus udlejes i Hammerum",
+      "category": "townhouse",
+      "street": "Egevænget",
+      "area": "Hammerum",
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.136,
+        "lng": 9.06
+      },
+      "rooms": 2,
+      "size": 40,
+      "rent": 4250,
+      "extraCosts": 1000,
+      "deposit": 12750,
+      "prepaidRent": 0,
+      "availableFrom": "2025-10-01",
+      "rentalPeriod": 0,
+      "floor": null,
+      "energyRating": null,
+      "features": {
+        "elevator": false,
+        "pet_friendly": true,
+        "furnished": false,
+        "senior_friendly": false,
+        "student_only": false,
+        "parking": true,
+        "balcony": true,
+        "shareable": false,
+        "dishwasher": true
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/50ea9240b9a879fc6802afe732a3b294",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/685f6e087f14efc913e05f8f8f02620a",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/273247f88e0ebbedb6f3811af8a9fc0f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/c0cb24480bede6deb836f875d5fa0d5f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/35a6f2b02a9b81ebfdd9e37fa2a592c3",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/3f3e9752d82f2157a0e1af2b5065bd8c",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/e4cfc7637f67e4013a1f2133ec5f866f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/c85ced6a417c174daf3004a5a46f9d18",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1984cdd275d130b76f795073372661a4",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/50795e9db413178e23dac39dd6e500b6",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1099860938115944221000e35a90827b",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/daedc89e4db7f0503201e19e29594149",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5f567c4d3c3ce02ed18e3248f385654d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/07e243961ac7647977a0a94b4eb805cd",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/b5ade27e53d7ff3d5375f4e447c85d7f",
+          "floorPlan": false
+        }
+      ],
+      "hasVideo": false,
+      "description": "Lille rækkehus i Hammerum udlejes.\n\nAconto på 1.000 kr. indeholder El, vand og varme \n\nLejemålet indeholder entre, badeværelse med brusekabine, stue/ køkkenalum i et samt værelse med indbygget skab.\n\nHvert lejemål har egen terrasse samt mindre have.\n\nLejemålene er netop total istandsat, men nye badeværelse, køkkener, gulve, inventar samt nye terrasse.\n\nAlle køkkener har selvfølgelig komfur, emhætte og opvaskemaskine. \n\nDet er muligt at indsætte egen vaskemaskine og tørretumbler.\n\nDer kan mod en lejestigning på 175 kr. pr. mrd. få indsat en vaskemaskine af udlejer.\n\nDet er også muligt at holde et husdyr mod en lejestigning på 250 kr. pr mrd.\n\nHvis dette kunne være noget for dig så skriv til os.",
+      "advertisedAt": "2026-09-10T09:23:00.886126+00:00"
+    },
+    {
+      "id": 5257454,
+      "url": "https://www.boligportal.dk/r%C3%A6kkehuse/herning/133m2-4-vaer-id-5257454",
+      "title": "Rækkehus i Gjellerup",
+      "category": "townhouse",
+      "street": "Klokkehøj",
+      "area": "Gjellerup",
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.149,
+        "lng": 9.035
+      },
+      "rooms": 4,
+      "size": 133,
+      "rent": 9950,
+      "extraCosts": 0,
+      "deposit": 29850,
+      "prepaidRent": 0,
+      "availableFrom": "2026-12-11",
+      "rentalPeriod": 0,
+      "floor": null,
+      "energyRating": null,
+      "features": {
+        "elevator": false,
+        "pet_friendly": true,
+        "furnished": false,
+        "senior_friendly": false,
+        "student_only": false,
+        "parking": true,
+        "balcony": true,
+        "shareable": true
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/7907a47b63ac991d24a6688c46b9a224",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/dd49847ecd70ba3853cf4e481b05f77c",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/142fe190aa35d2c97720983738149262",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5825c38cbc6e8913d4aa952b6285aecc",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/482357a63f3b14dc428c0a7e6513cca5",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5bf68a535a1907a14c2710839a8e7f3e",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5bc51cacd60ce5efe848b885ad7c8b1f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/e75a801332fd9bf79d39bd496bb1209c",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/8c92590bb671bc18ac3759d602a5c013",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/9dbae7991ffb84a5ef5ba979b890f39d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/4316a1f5ad1bcb6a5d20a48e5a9dafa6",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5f8d40dcf94bf87ec69198b999220abb",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/4c49464a53de5975d245418dc208f5ef",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/d60f1d99fe009f1dfcc802db6a716f51",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/69f3924cb1db03678ed8be66e9774599",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/1f5ea0417ddb7a511f2a9a820ea76e6d",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/72741ad0af81428239b058252fd07484",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/976b5bd092116703e857f99ff3a80902",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/f49d45b01559c310c1447e670aea526b",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/fca2e77c5ad0e4022d905a1f0801a266",
+          "floorPlan": false
+        }
+      ],
+      "hasVideo": true,
+      "description": "Super lyst og moderne hus i Gjellerup er nu ledigt\n\nHuset er fra 2008 og er indrettet med 3 værelser, 2 badeværelser og et brugers i underetagen, og stor køkkenalrum/stue på 1.sal.\n\nPå første sal er der en fantastik udsigten ind over Herning.\n\nHuset er på billederne ikke istandsat endnu.\nAlt bliver malet hvis og gulvet slibes og larkeres\n\nDerudover har huset en carport med lille skur, samt  dejlig lukket have.\n\nØnsker du en fremvisning så skriv eller ring så vi kan aftale en tid.\n\nTelefontid 9-16",
+      "advertisedAt": "2026-08-31T06:38:55.909864+00:00"
+    },
+    {
+      "id": 5513535,
+      "url": "https://www.boligportal.dk/lejligheder/herning/103m2-4-vaer-id-5513535",
+      "title": "Lækker 4 værelses lejlighed centralt i Herning",
+      "category": "apartment",
+      "street": "Nørregade",
+      "area": null,
+      "city": "Herning",
+      "postalCode": "7400",
+      "location": {
+        "lat": 56.141,
+        "lng": 8.981
+      },
+      "rooms": 4,
+      "size": 103,
+      "rent": 7450,
+      "extraCosts": 750,
+      "deposit": 22350,
+      "prepaidRent": 0,
+      "availableFrom": "2026-12-01",
+      "rentalPeriod": 0,
+      "floor": 1,
+      "energyRating": "C",
+      "features": {
+        "elevator": false,
+        "pet_friendly": false,
+        "furnished": false,
+        "senior_friendly": false,
+        "student_only": false,
+        "parking": false,
+        "balcony": true,
+        "shareable": true,
+        "dishwasher": true
+      },
+      "images": [
+        {
+          "url": "https://image-lambda.boligportal.dk/6e5d7eb39b91ae278d036c500a374d03",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/b2c0dfae8e0f0815086d515d6f5f2397",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/26e238e6b7e8b3564ffe6b39fc50d39f",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/6a86af18a8194c6ca90cfc568e53ea95",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5fb591eb43c9f021724e74293a909b7b",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/5dc2c79b5e7981aa847bc997701a2b34",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/2eec1f6b208e85bf8a06b520aeff6256",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/276459c38ee0cb2203ec240aa0e973a7",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/0217f03c5ed7f2bf8aac42daf4e76738",
+          "floorPlan": false
+        },
+        {
+          "url": "https://image-lambda.boligportal.dk/6557c2b45aea6713cdb92a79bdd15e6a",
+          "floorPlan": false
+        }
+      ],
+      "hasVideo": false,
+      "description": "Rummelig 4-værelses lejlighed på 103 m² med altan og fælles have – centralt på Nørregade\n\nVelindrettet og lys lejlighed på 103 m² beliggende på 1. sal på Nørregade. Boligen fremstår rummelig og funktionel med en god planløsning, der gør den ideel til både par, familier eller delevenner.\n\nLejligheden indeholder en entré, et stort badeværelse samt et lyst og åbent køkken/alrum med god plads til både spisebord og opholdsområde. Derudover rummer boligen to gode værelser samt et stort soveværelse med direkte adgang til en hyggelig altan.\n\nEjendommen byder desuden på fælles have, som giver gode muligheder for udendørs ophold, samt gode parkeringsforhold.\n\nEn attraktiv bolig med god plads og central beliggenhed.",
+      "advertisedAt": "2026-08-28T06:38:23.560242+00:00"
+    }
+  ]
+}
