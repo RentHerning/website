@@ -1,8 +1,9 @@
 // Static site build: renders every page per language to dist/, compiles SCSS,
 // bundles the browser JS and copies public files and fonts.
 //
-//   node build/build.mjs            production build (SITE_BASE=/website/ for GitHub Pages)
-//   node build/build.mjs --dev      unminified, used by build/dev.mjs
+//   node build/build.mjs                    production build, served from /
+//   node build/build.mjs --base=/website/   same, for GitHub Pages (works on Windows too)
+//   node build/build.mjs --dev              unminified, used by build/dev.mjs
 import { mkdir, rm, writeFile, cp, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -14,6 +15,8 @@ import * as sass from 'sass';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const dev = process.argv.includes('--dev');
+const baseArg = process.argv.find((a) => a.startsWith('--base='));
+if (baseArg) process.env.SITE_BASE = baseArg.slice('--base='.length);
 
 // Fresh imports on every build so the dev watcher picks up template changes.
 const stamp = Date.now();

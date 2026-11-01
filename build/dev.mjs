@@ -1,7 +1,7 @@
 // Local development: build, serve dist/ on http://localhost:5173 and rebuild on changes.
 // The browser reloads itself after each rebuild (a small polling snippet is injected).
 import { createServer } from 'node:http';
-import { watch } from 'node:fs';
+import { existsSync, watch } from 'node:fs';
 import { readFile, stat } from 'node:fs/promises';
 import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -40,7 +40,7 @@ function rebuild() {
 }
 
 let timer;
-for (const dir of ['src', 'public', 'data']) {
+for (const dir of ['src', 'public', 'data'].filter((d) => existsSync(join(ROOT, d)))) {
   watch(join(ROOT, dir), { recursive: true }, () => {
     clearTimeout(timer);
     timer = setTimeout(rebuild, 120);
