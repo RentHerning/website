@@ -1,0 +1,88 @@
+// Design tokens. Brand green comes from the Rent Herning logo (#254031).
+// Typography follows the readability brief: 16–18 px body, ~1.55 line height,
+// 60–75 character lines, WCAG AA contrast for all text colours.
+
+:root {
+  // Brand
+  --green-950: #18291f;
+  --green-900: #254031; // logo green
+  --green-800: #2f5240;
+  --green-700: #3d6852;
+  --green-200: #c9dacf;
+  --green-100: #e3ece6;
+  --green-50: #f1f6f2;
+
+  // Neutrals (warm, paper-like)
+  --paper: #faf8f4;
+  --surface: #ffffff;
+  --sand-100: #f2eee6;
+  --sand-200: #e6e0d4;
+  --line: #ddd7cb;
+  --ink: #1b221e; // 16.2:1 on paper
+  --ink-2: #4a544e; // 7.6:1 on paper
+  --ink-3: #66706a; // 4.9:1 on paper – smallest text that still passes AA
+
+  // Accents
+  --amber: #c98a1b; // highlights, never body text
+  --red-700: #b42318; // emergency
+  --red-50: #fdf1ef;
+
+  // Type
+  --font-head: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Fira Sans', system-ui, sans-serif;
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
+  --h4: clamp(1.125rem, 1.08rem + 0.25vw, 1.25rem);
+  --h3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --h2: clamp(1.625rem, 1.4rem + 1.1vw, 2.375rem);
+  --h1: clamp(2rem, 1.6rem + 2vw, 3.5rem);
+  --leading: 1.55;
+  --leading-tight: 1.15;
+  --measure: 66ch;
+
+  // Space (4 px grid)
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --section: clamp(3rem, 2rem + 4vw, 6.5rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --container: 80rem;
+
+  // Shape and depth
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-1: 0 1px 2px rgb(24 41 31 / 6%), 0 1px 1px rgb(24 41 31 / 4%);
+  --shadow-2: 0 2px 4px rgb(24 41 31 / 5%), 0 8px 24px rgb(24 41 31 / 8%);
+  --shadow-3: 0 4px 8px rgb(24 41 31 / 6%), 0 18px 48px rgb(24 41 31 / 14%);
+
+  --header-h: 4.5rem;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--green-700);
+}
+
+// Large and very large screens: scale everything up a little so the layout
+// doesn't look lost on a 27" or 4K display.
+@media (min-width: 1800px) {
+  :root {
+    font-size: 112.5%;
+    --container: 88rem;
+  }
+}
+@media (min-width: 2400px) {
+  :root {
+    font-size: 125%;
+  }
+}
+
+$bp-sm: 36em; // 576 px
+$bp-md: 48em; // 768 px
+$bp-lg: 64em; // 1024 px
+$bp-xl: 80em; // 1280 px

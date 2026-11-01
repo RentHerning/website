@@ -1,0 +1,18 @@
+// Self-hosted fonts (no Google Fonts requests, so no visitor data leaves the site).
+@mixin face($family, $file, $weight, $style: normal) {
+  @font-face {
+    font-family: $family;
+    font-style: $style;
+    font-weight: $weight;
+    font-display: swap;
+    src: url('fonts/#{$file}') format('woff2');
+  }
+}
+
+@include face('Montserrat', 'montserrat-latin-500-normal.woff2', 500);
+@include face('Montserrat', 'montserrat-latin-600-normal.woff2', 600);
+@include face('Montserrat', 'montserrat-latin-700-normal.woff2', 700);
+@include face('Fira Sans', 'fira-sans-latin-400-normal.woff2', 400);
+@include face('Fira Sans', 'fira-sans-latin-400-italic.woff2', 400, italic);
+@include face('Fira Sans', 'fira-sans-latin-500-normal.woff2', 500);
+@include face('Fira Sans', 'fira-sans-latin-600-normal.woff2', 600);
