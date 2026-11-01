@@ -3,7 +3,7 @@
 import home from './home.mjs';
 import listings from './listings.mjs';
 import listing from './listing.mjs';
-import { helpPlaceholder } from './placeholder.mjs';
+import help from './help.mjs';
 
-export const pages = [home, listings, listing, helpPlaceholder];
+export const pages = [home, listings, listing, help];
 export { default as notFound } from './not-found.mjs';
