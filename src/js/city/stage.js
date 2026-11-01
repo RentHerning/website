@@ -190,9 +190,16 @@ export function createStage(container, { reducedMotion = false, mobile = false }
       p.el.style.opacity = shown ? '1' : '0';
       p.el.style.zIndex = String(1000 + Math.round((1 - v.z) * 1000));
     }
+    // Labels: skip any that would overlap one already shown (cheap: ~7 labels).
+    const placed = [];
     for (const l of labels) {
-      project(l);
-      l.el.style.opacity = shown ? '1' : '0';
+      const v = project(l);
+      const x = (v.x * 0.5 + 0.5) * width;
+      const y = (-v.y * 0.5 + 0.5) * height;
+      const w = (l.w ??= l.el.offsetWidth || 80) / 2 + 6;
+      const free = placed.every((r) => Math.abs(r.x - x) > r.w + w || Math.abs(r.y - y) > 18);
+      if (free) placed.push({ x, y, w });
+      l.el.style.opacity = shown && free ? '1' : '0';
     }
   }
 
