@@ -2,7 +2,9 @@
 // Without JavaScript every form is simply shown in full and still works.
 //
 // URLs: /hjaelp/#vicevaert opens a flow directly (the home-page tiles use this).
-// Pre-fill (e.g. from Rita): /hjaelp/?flow=vicevaert&kategori=vvs&besked=Hanen+drypper
+// Rita hands over her draft via sessionStorage ("rita-prefill-v2"), never the URL,
+// so a tenant's text doesn't end up in server logs. Non-personal fields can still
+// be pre-filled by link: /hjaelp/?flow=vicevaert&kategori=vvs
 const root = document.querySelector('[data-help]');
 
 if (root) {
@@ -11,7 +13,29 @@ if (root) {
   const chooser = root.querySelector('[data-chooser]');
   const flows = new Map([...root.querySelectorAll('[data-flow]')].map((el) => [el.id, setupFlow(el)]));
 
+  // Rita's draft: { flow, field, message, ts } written by the chat widget.
+  function applyRitaDraft() {
+    let draft = null;
+    try {
+      draft = JSON.parse(sessionStorage.getItem('rita-prefill-v2') || 'null');
+    } catch {
+      return;
+    }
+    if (!draft || !flows.has(draft.flow) || Date.now() - draft.ts > 15 * 60 * 1000) return;
+    const flow = flows.get(draft.flow);
+    const field = flow.form.querySelector(`textarea[name="${CSS.escape(draft.field)}"], input[name="${CSS.escape(draft.field)}"]`);
+    if (field && !field.value) field.value = draft.message;
+    flow.form.querySelector('[data-rita-note]').hidden = false;
+    try {
+      sessionStorage.removeItem('rita-prefill-v2');
+    } catch {
+      /* ignore */
+    }
+    if (location.hash !== `#${draft.flow}`) history.replaceState(null, '', `${location.pathname}${location.search}#${draft.flow}`);
+  }
+
   function route() {
+    applyRitaDraft();
     const id = decodeURIComponent(location.hash.slice(1));
     const active = flows.get(id);
     chooser.hidden = Boolean(active);
@@ -101,6 +125,7 @@ if (root) {
             : fieldEl.querySelector('.field__label')?.textContent.trim();
           const checked = fieldEl.querySelector('input[type=radio]:checked');
           const input = fieldEl.querySelector('input:not([type=radio]), textarea');
+          if (input?.type === 'checkbox') continue; // acknowledgements aren't repeated in the summary
           let value = checked ? checked.dataset.label : input?.value.trim();
           if (!value) continue;
           if (input?.type === 'date') value = new Date(value).toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' });
@@ -147,12 +172,15 @@ if (root) {
         if (days > 14) text = root.dataset.within14Late;
       }
       if (input.dataset.check === 'notice') {
+        // "Løbende måned plus 3 måneder": the tenancy ends on the last day of the
+        // month three months from now; tenants must be out 14 days before that.
         const now = new Date();
-        const earliest = new Date(now.getFullYear(), now.getMonth() + 4, 1);
-        const date = earliest.toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' });
-        text = root.dataset.noticeEarliest.replace('{date}', date);
-        if (value && value < earliest) text += ` ${root.dataset.noticeEarly}`;
-        if (!input.min) input.min = new Date().toISOString().slice(0, 10);
+        const end = new Date(now.getFullYear(), now.getMonth() + 4, 0);
+        const out = new Date(end.getFullYear(), end.getMonth(), end.getDate() - 14);
+        const f = (d) => d.toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' });
+        text = root.dataset.noticeEarliest.replace('{end}', f(end)).replace('{out}', f(out));
+        if (value && value < out) text += ` ${root.dataset.noticeEarly}`;
+        if (!input.min) input.min = now.toISOString().slice(0, 10);
       }
       note.textContent = text;
       note.hidden = !text;

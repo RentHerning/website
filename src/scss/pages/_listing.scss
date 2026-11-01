@@ -495,3 +495,10 @@
     display: none;
   }
 }
+
+// Keep Rita's chat button above the sticky contact bar on phones and tablets.
+@media (max-width: #{$bp-lg - 0.01em}) {
+  .page-listing #rita-chat {
+    --rita-bottom: 5.5rem;
+  }
+}

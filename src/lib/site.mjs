@@ -21,6 +21,11 @@ export const site = {
     formEndpoint: process.env.FORM_ENDPOINT || null,
   },
 
+  // Rita, the chatbot (repo RentHerning/rita-robot). Set RITA_SCRIPT="" to leave her out.
+  rita: {
+    script: process.env.RITA_SCRIPT ?? 'https://rita-robot.philip15.workers.dev/rita.js',
+  },
+
   documents: {
     houseRules: 'https://rentherning.dk/Rent_Herning_Husorden.pdf',
     privacy: 'https://rentherning.dk/Rent_Herning_GDRP.pdf',

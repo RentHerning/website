@@ -524,3 +524,66 @@
     cursor: pointer;
   }
 }
+
+// Acknowledgement checkbox (e.g. the caretaker billing condition)
+.check {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  cursor: pointer;
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  &__box {
+    flex: none;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-top: 0.1rem;
+    border: 2px solid var(--ink-3);
+    border-radius: 5px;
+    background: #fff;
+  }
+  .field__label {
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  &:has(input:checked) {
+    border-color: var(--green-900);
+    background: var(--green-50);
+    .check__box {
+      border-color: var(--green-900);
+      background: var(--green-900)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
+        center / 80% no-repeat;
+    }
+  }
+  &:has(input:focus-visible) {
+    box-shadow: var(--focus);
+  }
+}
+
+// "Rita has written a draft" note at the top of a flow
+.flow__rita {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-5);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius);
+  background: var(--green-50);
+  color: var(--green-950);
+  font-size: 0.95rem;
+  &[hidden] {
+    display: none;
+  }
+  .icon {
+    color: var(--green-700);
+  }
+}
