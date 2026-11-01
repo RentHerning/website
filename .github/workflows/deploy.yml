@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site to https://rentherning.github.io/website/ on every push to
+# main, and after the scheduled listings update has committed new data
+# (commits made by a workflow don't trigger push events, hence workflow_run).
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ['Update listings']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/validate-listings.mjs
+      - name: Build
+        run: node build/build.mjs --base=/website/
+        env:
+          SITE_ORIGIN: https://rentherning.github.io
+          # Keep the demo out of search engines until it runs on rentherning.dk.
+          SITE_NOINDEX: '1'
+          # Set under Settings → Secrets and variables → Actions → Variables.
+          FORM_ENDPOINT: ${{ vars.FORM_ENDPOINT }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

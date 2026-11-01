@@ -8,6 +8,8 @@ export const site = {
   base: normaliseBase(process.env.SITE_BASE ?? '/'),
   // Absolute origin, used for canonical and Open Graph URLs.
   origin: process.env.SITE_ORIGIN ?? 'https://rentherning.dk',
+  // Demo deployments set SITE_NOINDEX=1 so search engines skip them.
+  noindex: process.env.SITE_NOINDEX === '1',
   languages: ['da', 'en'],
   defaultLanguage: 'da',
 
@@ -16,7 +18,7 @@ export const site = {
     emergencyPhone: null,
     email: null,
     // Form endpoint for the guided help flow (e.g. a Formspree form URL).
-    formEndpoint: process.env.FORM_ENDPOINT ?? null,
+    formEndpoint: process.env.FORM_ENDPOINT || null,
   },
 
   documents: {

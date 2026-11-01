@@ -19,7 +19,7 @@ export function layout(ctx, page, body) {
   <title>${title}</title>
   <meta name="description" content="${description}">
   <meta name="theme-color" content="#254031">
-  ${page.noindex ? raw('<meta name="robots" content="noindex">') : ''}
+  ${page.noindex || site.noindex ? raw('<meta name="robots" content="noindex">') : ''}
   <link rel="canonical" href="${ctx.absolute(ctx.currentUrl)}">
   ${Object.entries(ctx.alternates).map(
     ([l, url]) => html`<link rel="alternate" hreflang="${l}" href="${ctx.absolute(url)}">`,
