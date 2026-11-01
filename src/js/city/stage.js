@@ -63,6 +63,7 @@ export function createStage(container, { reducedMotion = false, mobile = false }
   let lastX = 0;
   let lastMoveT = 0;
   let rise = reducedMotion ? 10 : 0;
+  let riseStart = performance.now();
   let running = false;
   let visible = true;
   let raf = 0;
@@ -110,6 +111,7 @@ export function createStage(container, { reducedMotion = false, mobile = false }
     sun.castShadow = rise >= 1.6; // no shadows while buildings are still growing
     renderer.shadowMap.needsUpdate = true;
     rise = reducedMotion ? 10 : 0;
+    riseStart = performance.now();
     resize();
     renderOnce();
   }
@@ -190,7 +192,8 @@ export function createStage(container, { reducedMotion = false, mobile = false }
       angle += velocity * dt;
     }
     if (rise < 1.6) {
-      rise = Math.min(1.6, rise + dt / RISE_SECONDS * 1.6);
+      // Wall-clock based, so the intro takes the same time on slow devices.
+      rise = Math.min(1.6, ((now - riseStart) / 1000 / RISE_SECONDS) * 1.6);
       if (rise >= 1.6) {
         sun.castShadow = true;
         renderer.shadowMap.needsUpdate = true;

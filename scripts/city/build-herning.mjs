@@ -18,7 +18,8 @@ const OUT = join(ROOT, 'public/city/herning.bin');
 // Cut-out: a circle covering Torvet, the station area and the central listings
 // (H.C. Ørsteds Vej, Grønnegade, Nørregade). Small enough that buildings stay readable.
 const CENTER = { lat: 56.1378, lng: 8.9815 };
-const RADIUS = 560; // metres
+const RADIUS = 450; // metres
+const VERTICAL = 1.3; // gentle height exaggeration so the town reads better from above
 const SCALE = 0.05; // position quantisation (metres per int16 step)
 
 const ENDPOINTS = [
@@ -41,17 +42,17 @@ out tags geom;`;
 
 // ---------------------------------------------------------------- palette (same family as version A)
 const P = {
-  ground: hex('#ddd8cc'),
-  road: hex('#c3bdb1'),
-  roadMajor: hex('#b8b2a6'),
-  pedestrian: hex('#ece5d6'),
+  ground: hex('#d6d0c2'),
+  road: hex('#b9b3a6'),
+  roadMajor: hex('#aaa396'),
+  pedestrian: hex('#efe8d9'),
   rail: hex('#8a8178'),
   parking: hex('#d2ccc0'),
   grass: hex('#c3d3b2'),
   wood: hex('#a9c19a'),
   water: hex('#8fb5c8'),
   soil: [hex('#7a6450'), hex('#5f4c3c')],
-  roofFlat: hex('#e9e6df'),
+  roofFlat: hex('#f3f0ea'),
   roofTile: hex('#a5533c'),
   roofSlate: hex('#4b5257'),
   trees: [hex('#5f8a62'), hex('#6f9a69'), hex('#4f7a5a'), hex('#7ea56f')],
@@ -233,7 +234,7 @@ function styleFor(el, footprint) {
   let h = Number.isFinite(height) ? height : floors * 3 + 0.6;
   if (!Number.isFinite(height) && gable) h = floors * 2.9;
   return {
-    h,
+    h: h * VERTICAL,
     wall: pick(walls, el.id, 6),
     windows: floors >= 1 && !['garage', 'garages', 'shed', 'carport', 'roof'].includes(type) ? 1 : 0,
     gable: gable && footprint.length === 4 && a < 260,
