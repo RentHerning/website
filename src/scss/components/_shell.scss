@@ -90,10 +90,10 @@ body {
   bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
 }
 #rita-chat {
-  --rita-bottom: calc(var(--bar-h) + 1rem);
+  --rita-bottom: calc(var(--bar-h) + 1.5rem);
 }
 @media (max-width: #{$bp-lg - 0.01em}) {
   body.page-listing #rita-chat {
-    --rita-bottom: calc(var(--bar-h) + 5.25rem);
+    --rita-bottom: calc(var(--bar-h) + 5.75rem);
   }
 }
