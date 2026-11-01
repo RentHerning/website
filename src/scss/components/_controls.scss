@@ -1,0 +1,110 @@
+@use '../base/tokens' as *;
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  &[hidden] {
+    display: none;
+  }
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 2.75rem;
+  padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 0.925rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+  &__n {
+    min-width: 1.5em;
+    padding: 0 0.4em;
+    border-radius: 999px;
+    background: var(--sand-100);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  &:hover {
+    border-color: var(--green-700);
+  }
+  &[aria-pressed='true'] {
+    background: var(--green-900);
+    border-color: var(--green-900);
+    color: #fff;
+    .chip__n {
+      background: rgb(255 255 255 / 18%);
+    }
+  }
+}
+
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  &[hidden] {
+    display: none;
+  }
+  &__label {
+    font-size: 0.925rem;
+    color: var(--ink-2);
+  }
+  select {
+    appearance: none;
+    min-height: 2.75rem;
+    padding: var(--s-2) 2.5rem var(--s-2) var(--s-4);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 0.925rem;
+    cursor: pointer;
+    &:hover {
+      border-color: var(--green-700);
+    }
+  }
+  .icon {
+    position: absolute;
+    right: 0.9rem;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    color: var(--ink-2);
+  }
+}
+
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  max-width: 34rem;
+  margin: var(--s-6) auto;
+  padding: var(--s-7) var(--s-6);
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+  > .icon {
+    width: 3rem;
+    height: 3rem;
+    color: var(--green-700);
+  }
+  h2 {
+    font-size: var(--h3);
+    margin: 0;
+  }
+  p {
+    color: var(--ink-2);
+  }
+}

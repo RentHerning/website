@@ -15,5 +15,4 @@ const placeholder = (id, titleKey) => ({
   },
 });
 
-export const listingsPlaceholder = placeholder('listings', 'nav.listings');
 export const helpPlaceholder = placeholder('help', 'nav.help');
