@@ -53,3 +53,11 @@ The hero shows a low-poly city that slowly turns and can be dragged sideways. Th
 Both use one merged mesh and one material (`src/js/city/material.js`). Windows are drawn by the shader on walls, not modelled, and buildings "grow" out of the ground on load. The scene pauses when it's off-screen or the tab is hidden. With *reduce motion* switched on it shows a still frame. On devices without WebGL, with ≤2 CPU cores or ≤2 GB memory, or with data-saver on, it shows a pre-rendered image (`public/city/still-*.webp`) instead. Add `?3d` to the URL to force the live scene.
 
 `.github/workflows/build-city.yml` rebuilds the real-Herning model and both still images whenever the city code changes (or on demand from the Actions tab), and commits them. Map data © OpenStreetMap contributors (ODbL); the credit is shown on the page whenever version B is visible.
+
+## Deploying
+
+`.github/workflows/deploy.yml` builds the site with `--base=/website/` and publishes it to GitHub Pages on every push to `main`, and again after each scheduled listings update. The demo is marked `noindex` (`SITE_NOINDEX=1`) so search engines don't index it alongside the real site.
+
+One-time setup in the repository settings: **Pages → Build and deployment → Source: GitHub Actions**. To connect the help forms to an inbox, add a repository variable `FORM_ENDPOINT` (Settings → Secrets and variables → Actions → Variables), for example a Formspree form URL.
+
+Moving to rentherning.dk later means building with the default base (`npm run build`) and `SITE_ORIGIN=https://rentherning.dk`, dropping `SITE_NOINDEX`, and uploading `dist/` to the host – or pointing the domain at GitHub Pages.
