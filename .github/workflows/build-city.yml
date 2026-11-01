@@ -6,6 +6,9 @@ name: Build 3D city
 on:
   workflow_dispatch:
   push:
+    # Only on feature branches: the files are committed there and reviewed in
+    # the PR. Rebuilding on main as well would create a second, conflicting copy.
+    branches-ignore: [main]
     paths:
       - 'scripts/city/**'
       - 'src/js/city/**'

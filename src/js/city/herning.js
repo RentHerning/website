@@ -1,4 +1,4 @@
-// Version B: the real centre of Herning, built from OpenStreetMap by
+// The real centre of Herning, built from OpenStreetMap by
 // scripts/city/build-herning.mjs into a compact binary file (see format there).
 
 const METRES_PER_DEG_LAT = 110574;
@@ -44,7 +44,19 @@ export function decode(buffer) {
     info[i * 2] = qInfo[i * 2] / 255;
     info[i * 2 + 1] = qInfo[i * 2 + 1] === 255 ? -1 : qInfo[i * 2 + 1] / 254;
   }
-  return { position, color, info, index, radius: header.radius, maxHeight: header.maxHeight, center: header.center };
+  const pts = (flat) => Array.from({ length: flat.length / 2 }, (_, i) => [flat[i * 2] / 10, flat[i * 2 + 1] / 10]);
+  return {
+    position,
+    color,
+    info,
+    index,
+    radius: header.radius,
+    maxHeight: header.maxHeight,
+    center: header.center,
+    roads: (header.roads ?? []).map(([major, flat]) => ({ major: Boolean(major), points: pts(flat) })),
+    rail: (header.rail ?? []).map(pts),
+    labels: (header.labels ?? []).map((l) => ({ name: l.name, x: l.x / 10, z: l.z / 10 })),
+  };
 }
 
 /** Real coordinates: only listings inside the cut-out get a pin. */
