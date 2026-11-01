@@ -1,0 +1,56 @@
+name: Update listings
+
+# Fetches Rent Herning's listings from Boligportal every 6 hours and commits
+# data/listings.json when something changed. The deploy workflow then rebuilds the site.
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-listings
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch listings (plain HTTP)
+        id: plain
+        continue-on-error: true
+        run: node scripts/scrape.mjs
+
+      - name: Fetch listings (browser fallback)
+        if: steps.plain.outcome == 'failure'
+        run: |
+          npm install --no-save playwright@1
+          npx playwright install --with-deps chromium
+          SCRAPE_BROWSER=1 node scripts/scrape.mjs
+
+      - name: Validate data
+        run: node scripts/validate-listings.mjs
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- data/listings.json; then
+            echo "Listings unchanged."
+            exit 0
+          fi
+          git config user.name "rent-herning-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/listings.json
+          git commit -m "Update listings from Boligportal"
+          git push

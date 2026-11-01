@@ -1,0 +1,497 @@
+@use '../base/tokens' as *;
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.muted {
+  color: var(--ink-2);
+}
+.small {
+  font-size: var(--text-sm);
+}
+
+.listing-top {
+  padding-block: var(--s-5) var(--s-4);
+}
+.crumbs a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  .icon {
+    transition: transform 0.2s var(--ease);
+  }
+  &:hover .icon {
+    transform: translateX(-3px);
+  }
+}
+
+// ---- Gallery: swipeable carousel on phones, mosaic from tablets up ---------
+.gallery {
+  position: relative;
+
+  &__track {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-radius: var(--radius-lg);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &__item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    a {
+      position: relative;
+      display: block;
+      height: 100%;
+      overflow: hidden;
+      background: var(--sand-200);
+      &:focus-visible {
+        border-radius: 0;
+        box-shadow: inset 0 0 0 3px var(--green-700);
+      }
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      transition:
+        transform 0.5s var(--ease),
+        filter 0.3s;
+    }
+    a:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.95);
+    }
+  }
+  &__tag {
+    position: absolute;
+    left: var(--s-3);
+    bottom: var(--s-3);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 92%);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--green-950);
+  }
+  &__counter {
+    position: absolute;
+    right: var(--s-3);
+    bottom: var(--s-3);
+    margin: 0;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgb(24 41 31 / 72%);
+    color: #fff;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+  &__all {
+    display: none;
+  }
+
+  @media (min-width: $bp-md) {
+    &__track {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: var(--s-2);
+      overflow: visible;
+      aspect-ratio: 2.2 / 1;
+    }
+    &__item {
+      img {
+        aspect-ratio: auto;
+      }
+      &--hero {
+        grid-row: 1 / 3;
+      }
+      &--extra {
+        display: none;
+      }
+    }
+    &__counter {
+      display: none;
+    }
+    &__all {
+      display: inline-flex;
+      position: absolute;
+      right: var(--s-4);
+      bottom: var(--s-4);
+      min-height: 2.75rem;
+      padding-inline: var(--s-4);
+      font-size: 0.925rem;
+      box-shadow: var(--shadow-2);
+    }
+  }
+}
+
+// Fewer than 5 photos: simpler mosaic.
+@media (min-width: $bp-md) {
+  .gallery__track:has(> :nth-child(2):last-child) {
+    grid-template-columns: 2fr 1fr;
+  }
+  .gallery__track:has(> :only-child) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ---- Lightbox ---------------------------------------------------------------
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(12 20 15 / 96%);
+  color: #fff;
+  &::backdrop {
+    background: rgb(12 20 15 / 80%);
+  }
+  &[open] {
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-3) var(--s-4);
+  }
+  &__count {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    color: var(--green-100);
+  }
+  &__stage {
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 0 var(--s-4) var(--s-6);
+    min-height: 0;
+    overflow: hidden;
+    img {
+      max-width: min(100%, 1600px);
+      max-height: calc(100dvh - 6.5rem);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      user-select: none;
+    }
+  }
+  &__btn {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 12%);
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      background: rgb(255 255 255 / 22%);
+    }
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    &--prev {
+      left: var(--s-3);
+    }
+    &--next {
+      right: var(--s-3);
+    }
+  }
+}
+
+// ---- Layout: content + sticky costs card --------------------------------------
+// Phones: heading, costs card, then details. Desktop: costs card sticks in a side column.
+.listing-layout {
+  display: grid;
+  grid-template-areas: 'head' 'aside' 'main';
+  gap: var(--s-6);
+  padding-block: var(--s-6) var(--section);
+  @media (min-width: $bp-lg) {
+    grid-template-areas: 'head aside' 'main aside';
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    grid-template-rows: auto 1fr;
+    gap: 0 var(--s-8);
+  }
+  @media (min-width: $bp-xl) {
+    grid-template-columns: minmax(0, 1fr) 25rem;
+  }
+}
+.listing-head {
+  grid-area: head;
+}
+.listing-main {
+  grid-area: main;
+}
+.listing-aside {
+  grid-area: aside;
+  @media (min-width: $bp-lg) {
+    position: relative;
+    .economy {
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-5));
+    }
+  }
+}
+
+.listing-head {
+  h1 {
+    margin-bottom: var(--s-4);
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);
+  }
+  &__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--ink-2);
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-2);
+    }
+    .icon {
+      color: var(--green-700);
+    }
+    .is-now {
+      color: var(--green-800);
+      font-weight: 500;
+    }
+  }
+}
+
+.listing-section {
+  margin-top: var(--s-7);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+  h2 {
+    font-size: var(--h3);
+  }
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  &__row {
+    padding: var(--s-4);
+    // Hairlines between cells without a coloured gap in the last row.
+    box-shadow:
+      1px 0 0 var(--line),
+      0 1px 0 var(--line);
+  }
+  dt {
+    font-size: var(--text-sm);
+    color: var(--ink-3);
+  }
+  dd {
+    margin: var(--s-1) 0 0;
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--green-950);
+  }
+}
+
+.listing-title-quote {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--h4);
+  color: var(--green-950);
+}
+.description {
+  p {
+    margin-bottom: var(--s-4);
+  }
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--s-3);
+  margin: 0 0 var(--s-4);
+  padding: 0;
+  list-style: none;
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    background: var(--green-50);
+    border-radius: var(--radius);
+  }
+  .icon {
+    color: var(--green-800);
+  }
+}
+
+.map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: var(--s-3);
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 50%, var(--green-100) 0 18%, transparent 19%),
+    repeating-linear-gradient(35deg, var(--sand-100) 0 22px, var(--paper) 22px 44px);
+  &__placeholder {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--s-2);
+    height: 100%;
+    padding: var(--s-4);
+    text-align: center;
+    > .icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      color: var(--green-900);
+    }
+    p {
+      margin: 0;
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+    }
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+// ---- Costs card ---------------------------------------------------------------
+.economy {
+  padding: var(--s-6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  &__title {
+    margin-bottom: var(--s-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-700);
+  }
+  &__price {
+    margin: 0 0 var(--s-4);
+    font-family: var(--font-head);
+    color: var(--ink-2);
+    strong {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--green-950);
+    }
+  }
+  &__rows {
+    margin: 0 0 var(--s-3);
+    > div {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--s-4);
+      padding: var(--s-2) 0;
+      border-bottom: 1px solid var(--sand-200);
+    }
+    dt {
+      color: var(--ink-2);
+    }
+    dd {
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+  }
+  &__total {
+    border-bottom: 0 !important;
+    font-weight: 600;
+    dt,
+    dd {
+      color: var(--green-950) !important;
+    }
+  }
+  &__note {
+    font-size: var(--text-sm);
+    color: var(--ink-3);
+  }
+  .button {
+    margin-top: var(--s-2);
+  }
+}
+
+// ---- Mobile contact bar --------------------------------------------------------
+.contact-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--gutter) calc(var(--s-3) + env(safe-area-inset-bottom));
+  background: rgb(255 255 255 / 96%);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -6px 20px rgb(24 41 31 / 8%);
+  transition:
+    transform 0.25s var(--ease),
+    opacity 0.25s;
+  &.is-hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  &__price {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    line-height: 1.2;
+    strong {
+      display: block;
+      font-size: 1.25rem;
+      color: var(--green-950);
+    }
+  }
+  .button {
+    min-height: 2.75rem;
+    padding-inline: var(--s-4);
+    font-size: 0.95rem;
+  }
+  @media (min-width: $bp-lg) {
+    display: none;
+  }
+}
