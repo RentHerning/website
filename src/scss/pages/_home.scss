@@ -1,0 +1,246 @@
+@use '../base/tokens' as *;
+
+// ---- Hero: text left, 3D city right (full-bleed); stacked on phones ---------
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(120% 90% at 85% 40%, var(--green-50) 0%, transparent 60%),
+    linear-gradient(180deg, var(--paper) 0%, var(--sand-100) 100%);
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-height: min(42rem, calc(100svh - var(--header-h)));
+    align-items: center;
+    padding-block: var(--s-7) var(--s-8);
+    pointer-events: none; // let drags reach the scene; re-enabled on the text
+  }
+  &__text {
+    max-width: 38rem;
+    pointer-events: auto;
+    h1 {
+      margin-bottom: var(--s-5);
+    }
+    .lead {
+      margin-bottom: var(--s-6);
+    }
+  }
+
+  &__scene {
+    position: absolute;
+    inset: 0 0 0 38%;
+    z-index: 0;
+    // Fade the scene into the page on the left so the text stays readable.
+    mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      outline: none;
+    }
+  }
+  &__scene-fallback {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center left;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: var(--s-4) clamp(1.25rem, 4vw, 3rem);
+    margin: var(--s-7) 0 0;
+    > div {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    dt {
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+    }
+    dd {
+      margin: 0;
+      font-family: var(--font-head);
+      font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--green-900);
+    }
+  }
+
+  @media (max-width: #{$bp-lg - 0.01em}) {
+    display: flex;
+    flex-direction: column-reverse;
+    &__inner {
+      min-height: 0;
+      padding-block: var(--s-5) var(--s-7);
+    }
+    &__scene {
+      position: relative;
+      inset: auto;
+      height: clamp(16rem, 60vw, 26rem);
+      mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    }
+  }
+}
+
+.button__badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.6em;
+  height: 1.6em;
+  padding: 0 0.45em;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 18%);
+  font-size: 0.85em;
+}
+
+// ---- Tenant help ------------------------------------------------------------
+.eyebrow--light {
+  color: var(--green-200);
+}
+.tenant {
+  &__grid {
+    display: grid;
+    gap: var(--s-7);
+    align-items: center;
+    @media (min-width: $bp-lg) {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: var(--s-8);
+    }
+  }
+  &__intro {
+    p {
+      color: var(--green-100);
+      max-width: 40ch;
+    }
+    .button {
+      margin-top: var(--s-3);
+    }
+  }
+  &__tiles {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  min-height: 5.5rem;
+  border-radius: var(--radius-lg);
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    transform 0.2s var(--ease);
+  &:hover {
+    background: rgb(255 255 255 / 13%);
+    color: #fff;
+    text-decoration: none;
+    transform: translateX(4px);
+  }
+  &__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--green-100);
+    color: var(--green-900);
+  }
+  &__text {
+    display: grid;
+    gap: 0.15rem;
+    strong {
+      font-family: var(--font-head);
+      font-size: 1.0625rem;
+    }
+    span {
+      color: var(--green-100);
+      font-size: 0.95rem;
+    }
+  }
+  &__arrow {
+    margin-left: auto;
+    color: var(--green-200);
+  }
+  &--urgent .tile__icon {
+    background: #fde7e4;
+    color: var(--red-700);
+  }
+}
+
+// ---- About ----------------------------------------------------------------
+.about {
+  &__grid {
+    display: grid;
+    gap: var(--s-7);
+    @media (min-width: $bp-lg) {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-9);
+    }
+  }
+  &__points {
+    display: grid;
+    gap: var(--s-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      display: flex;
+      gap: var(--s-4);
+    }
+    h3 {
+      margin-bottom: var(--s-2);
+      font-size: var(--h4);
+    }
+    p {
+      margin: 0;
+      color: var(--ink-2);
+    }
+  }
+  &__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius);
+    background: var(--green-100);
+    color: var(--green-900);
+  }
+  &__links {
+    margin-top: var(--s-3) !important;
+  }
+}
+
+.area-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  list-style: none;
+  li {
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    background: var(--sand-100);
+    border: 1px solid var(--sand-200);
+    font-size: 0.875rem;
+    color: var(--ink-2);
+  }
+}
