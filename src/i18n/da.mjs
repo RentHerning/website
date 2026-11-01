@@ -37,6 +37,12 @@ export default {
     rights: 'Alle rettigheder forbeholdes.',
     listingsSource: 'Boligannoncer hentes fra Boligportal.',
   },
+  bar: {
+    label: 'Genveje',
+    emergency: 'Akut skade',
+    houseRules: 'Husorden',
+    privacy: 'Privatliv',
+  },
   listings: {
     title: 'Ledige boliger',
     lead: 'Alle Rent Hernings ledige lejeboliger i Herning og omegn. Klik på en bolig for at se billeder, økonomi og beskrivelse.',

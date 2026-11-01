@@ -37,6 +37,12 @@ export default {
     rights: 'All rights reserved.',
     listingsSource: 'Listings are fetched from Boligportal.',
   },
+  bar: {
+    label: 'Shortcuts',
+    emergency: 'Emergency',
+    houseRules: 'House rules',
+    privacy: 'Privacy',
+  },
   listings: {
     title: 'Available homes',
     lead: 'All of Rent Herning’s homes for rent in and around Herning. Click a home to see photos, costs and the full description.',
