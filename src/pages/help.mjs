@@ -42,6 +42,17 @@ function field(ctx, f, flowId) {
   </div>`;
   }
 
+  if (f.type === 'checkbox') {
+    return html`<div class="field">
+    <label class="check" for="${id}">
+      <input type="checkbox" id="${id}" name="${f.name}" value="ja"${req}${describedBy}>
+      <span class="check__box" aria-hidden="true"></span>
+      <span class="field__label">${label}</span>
+    </label>
+    ${hint}
+  </div>`;
+  }
+
   const common = raw(
     `id="${id}" name="${f.name}"${f.required ? ' required' : ''}${f.autocomplete ? ` autocomplete="${f.autocomplete}"` : ''}${f.inputmode ? ` inputmode="${f.inputmode}"` : ''}${f.check ? ` data-check="${f.check}"` : ''}`,
   );
@@ -75,6 +86,7 @@ function flowSection(ctx, flow) {
     <input type="hidden" name="_subject" value="Rent Herning: ${L(ctx, flow.subject)}">
     <input type="hidden" name="sprog" value="${ctx.lang}">
     <label class="visually-hidden" aria-hidden="true">Website <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+    <p class="flow__rita" data-rita-note hidden>${icon('sparkles')} ${t('help.ritaDraft')}</p>
     <div class="flow__progress" data-progress hidden>
       <p data-progress-text data-template="${t('help.step')}"></p>
       <div class="flow__bar"><span data-progress-bar></span></div>

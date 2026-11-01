@@ -45,6 +45,9 @@ export function layout(ctx, page, body) {
 ${body}
   </main>
   ${footer(ctx)}
+  ${site.rita.script
+    ? html`<script src="${site.rita.script}" defer data-site="${site.base}" data-lang="${lang}"${site.contact.emergencyPhone ? raw(` data-emergency-phone="${site.contact.emergencyPhone}"`) : ''}></script>`
+    : ''}
 </body>
 </html>
 `;

@@ -5,7 +5,8 @@
 // Field types: choice (big buttons, one answer), radio (one answer, list),
 // text, textarea, date, tel, email, address (street + flat no.), names, items (repeatable).
 //
-// Rita (or any link) can open a flow pre-filled: /hjaelp/?flow=vicevaert&kategori=vvs&besked=...
+// Rita opens a flow with her draft via sessionStorage (key rita-prefill-v2), see help.js.
+// Non-personal fields can also be pre-filled by link: /hjaelp/?flow=vicevaert&kategori=vvs
 
 const contactStep = {
   id: 'contact',
@@ -32,10 +33,10 @@ export const FLOWS = [
     icon: 'siren',
     urgent: true,
     title: { da: 'Akut skade', en: 'Emergency damage' },
-    summary: { da: 'Vand, varme, strøm eller låse – noget der ikke kan vente.', en: 'Water, heating, power or locks – something that can’t wait.' },
+    summary: { da: 'Brand, vandskade eller andet, der på ingen måde kan vente.', en: 'Fire, water damage or anything else that can’t wait at all.' },
     intro: {
-      da: 'Ring til os med det samme ved akutte skader. Skriv kun, hvis du ikke kan komme igennem.',
-      en: 'Call us straight away for emergencies. Only write if you can’t get through.',
+      da: 'Akut er kun brand, vandskade eller andet, der på ingen måde kan vente. Ring til os med det samme, og skriv kun, hvis du ikke kan komme igennem. Er det ikke akut, så brug “Noget skal ordnes” – akutte henvendelser, der ikke er akutte, bliver ikke besvaret.',
+      en: 'Emergency means only fire, water damage or anything else that can’t wait at all. Call us straight away, and only write if you can’t get through. If it isn’t urgent, use “Something needs fixing” – non-urgent emergency requests aren’t answered.',
     },
     callFirst: true,
     subject: { da: 'AKUT skade', en: 'EMERGENCY damage' },
@@ -50,11 +51,9 @@ export const FLOWS = [
             required: true,
             label: { da: 'Vælg det, der passer bedst', en: 'Choose the best match' },
             options: [
-              { value: 'vand', icon: 'droplets', label: { da: 'Vandskade eller udsivning', en: 'Water damage or a leak' } },
-              { value: 'varme', icon: 'thermometer', label: { da: 'Ingen varme', en: 'No heating' } },
-              { value: 'el', icon: 'zap', label: { da: 'Ingen strøm i boligen', en: 'No power in the home' } },
-              { value: 'laas', icon: 'lock', label: { da: 'Dør eller lås virker ikke', en: 'Door or lock not working' } },
-              { value: 'andet', icon: 'circle-help', label: { da: 'Andet akut', en: 'Something else urgent' } },
+              { value: 'vandskade', icon: 'droplets', label: { da: 'Vandskade', en: 'Water damage' } },
+              { value: 'brand', icon: 'flame', label: { da: 'Brand (ring 112 først)', en: 'Fire (call 112 first)' } },
+              { value: 'andet', icon: 'circle-help', label: { da: 'Andet, der ikke kan vente', en: 'Something else that can’t wait' } },
             ],
           },
           { name: 'besked', type: 'textarea', required: true, label: { da: 'Beskriv kort, hvad der er sket', en: 'Briefly describe what happened' } },
@@ -110,7 +109,22 @@ export const FLOWS = [
         ],
       },
       addressStep,
-      contactStep,
+      {
+        ...contactStep,
+        fields: [
+          ...contactStep.fields,
+          {
+            name: 'accept_regning',
+            type: 'checkbox',
+            required: true,
+            label: {
+              da: 'Jeg er indforstået med, at hvis opgaven hører under indvendig vedligeholdelse, eller skaden er selvforskyldt, sender Herning Boligservice en regning.',
+              en: 'I understand that if the job falls under interior maintenance, or the damage is my own fault, Herning Boligservice will send an invoice.',
+            },
+            hint: { da: 'Hvem der har den indvendige vedligeholdelse, står i din lejekontrakt.', en: 'Your tenancy agreement says who is responsible for interior maintenance.' },
+          },
+        ],
+      },
     ],
   },
   {
@@ -119,8 +133,8 @@ export const FLOWS = [
     title: { da: 'Fejl og mangler efter indflytning', en: 'Faults after moving in' },
     summary: { da: '14-dages syn: meld fejl og mangler, du har fundet i din nye bolig.', en: '14-day inspection: report faults you’ve found in your new home.' },
     intro: {
-      da: 'Når du er flyttet ind, har du 14 dage til at give os besked om fejl og mangler, som ikke står i indflytningsrapporten.',
-      en: 'After moving in, you have 14 days to tell us about faults that aren’t in the move-in report.',
+      da: 'Fejl og mangler skal meldes senest 14 dage efter indflytning. Vigtigt: Din indsendelse er den gældende – du kan ikke sende en ny bagefter. Gennemgå derfor hele boligen, og saml alt i én indsendelse.',
+      en: 'Faults must be reported no later than 14 days after moving in. Important: your submission is final – you can’t send another one later. So go through the whole home and put everything in one submission.',
     },
     subject: { da: '14-dages syn', en: '14-day inspection' },
     steps: [
@@ -136,12 +150,20 @@ export const FLOWS = [
         title: { da: 'Hvad har du fundet?', en: 'What have you found?' },
         fields: [
           {
+            name: 'stand',
+            type: 'textarea',
+            required: false,
+            rows: 4,
+            label: { da: 'Lejemålets stand (valgfri)', en: 'Condition of the home (optional)' },
+            hint: { da: 'Ting du først har opdaget nu, fx buler i hvidevarer. Listen gemmes til udflytning, så du ikke betaler for skader, du ikke har lavet.', en: 'Things you’ve only noticed now, e.g. dents in appliances. The list is kept for when you move out, so you don’t pay for damage you didn’t cause.' },
+          },
+          {
             name: 'mangler',
             type: 'textarea',
             required: true,
             rows: 7,
-            label: { da: 'Skriv én fejl eller mangel pr. linje', en: 'Write one fault per line' },
-            hint: { da: 'Skriv rummet først. Fx: “Badeværelse: revne i flisen ved bruseren”.', en: 'Start with the room. E.g.: “Bathroom: cracked tile by the shower”.' },
+            label: { da: 'Fejl og mangler, der skal laves – én pr. linje', en: 'Faults that need fixing – one per line' },
+            hint: { da: 'Skriv rummet først. Fx: “Køkken: stikkontakten ved vinduet virker ikke”.', en: 'Start with the room. E.g.: “Kitchen: the socket by the window doesn’t work”.' },
           },
         ],
       },
@@ -155,8 +177,8 @@ export const FLOWS = [
     title: { da: 'Jeg vil flytte', en: 'I want to move out' },
     summary: { da: 'Opsig dit lejemål. Vi bekræfter, når vi har modtaget opsigelsen.', en: 'Give notice on your home. We confirm when we’ve received it.' },
     intro: {
-      da: 'Opsigelsesvarslet står i din lejekontrakt. Normalt er det 3 måneder til den 1. i en måned. Står I flere på kontrakten, skal alle være med på opsigelsen.',
-      en: 'Your notice period is in your tenancy agreement. Usually it’s 3 months to the 1st of a month. If more than one person is on the agreement, everyone must be included.',
+      da: 'De fleste af vores lejemål har et opsigelsesvarsel på løbende måned plus 3 måneder – tjek altid din egen lejekontrakt. Du skal være flyttet ud senest 14 dage før lejeperiodens slutning, men betaler fuld husleje for den sidste måned. Står I flere på kontrakten, skal alle være med.',
+      en: 'Most of our homes have a notice period of the current month plus 3 months – always check your own tenancy agreement. You must have moved out no later than 14 days before the tenancy ends, but you pay full rent for the last month. If more than one person is on the agreement, everyone must be included.',
     },
     subject: { da: 'Opsigelse af lejemål', en: 'Notice to move out' },
     steps: [
@@ -165,7 +187,7 @@ export const FLOWS = [
         id: 'when',
         title: { da: 'Hvornår vil du flytte?', en: 'When do you want to move out?' },
         fields: [
-          { name: 'fraflytning', type: 'date', required: true, check: 'notice', label: { da: 'Ønsket fraflytningsdato', en: 'Preferred move-out date' } },
+          { name: 'fraflytning', type: 'date', required: true, check: 'notice', label: { da: 'Hvornår flytter du ud?', en: 'When will you move out?' } },
         ],
       },
       {
