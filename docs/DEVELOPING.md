@@ -42,17 +42,18 @@ The file is only rewritten when a listing actually changed, so the scheduled job
 
 ## 3D city on the home page
 
-The hero shows a low-poly city that slowly turns and can be dragged sideways. There are two versions, switchable in the hero (and with `?city=a` / `?city=b`):
+The hero shows a low-poly model of central Herning, built from OpenStreetMap: about 600 buildings in a round 450 m cut-out around Torvet, with the churches given towers and spires, trees along the pedestrian streets, cars driving on the real roads, labels for the main streets and pins for the listings inside the cut-out. North stays up and the view sways gently; dragging sideways turns it, and it eases back.
 
-| | A: Stylised town | B: Real Herning |
-|---|---|---|
-| Source | Generated in the browser from a fixed seed (`src/js/city/town.js`) | OpenStreetMap, pre-built into `public/city/herning.bin` by `scripts/city/build-herning.mjs` |
-| Size | No data file | ~0.5–1 MB binary (quantised positions, shared wall vertices) |
-| Pins | Listings placed by relative position | Listings at their real location (only those inside the 560 m cut-out) |
+| Device | What it gets |
+|---|---|
+| Laptop and desktop (1024 px and wider) with WebGL | The live 3D scene, loaded after the page is idle |
+| **Phones and small tablets (narrower than 1024 px)** | **Always the still image** (`public/city/still.webp`); three.js and the model are never downloaded |
+| *Reduce motion* switched on | A still frame of the live scene |
+| No WebGL, ≤2 CPU cores, ≤2 GB memory or data-saver | The still image |
 
-Both use one merged mesh and one material (`src/js/city/material.js`). Windows are drawn by the shader on walls, not modelled, and buildings "grow" out of the ground on load. The scene pauses when it's off-screen or the tab is hidden. With *reduce motion* switched on it shows a still frame. On devices without WebGL, with ≤2 CPU cores or ≤2 GB memory, or with data-saver on, it shows a pre-rendered image (`public/city/still-*.webp`) instead. Add `?3d` to the URL to force the live scene.
+Add `?3d` to the URL to force the live scene anywhere (useful for testing).
 
-`.github/workflows/build-city.yml` rebuilds the real-Herning model and both still images whenever the city code changes (or on demand from the Actions tab), and commits them. Map data © OpenStreetMap contributors (ODbL); the credit is shown on the page whenever version B is visible.
+`scripts/city/build-herning.mjs` builds `public/city/herning.bin` (quantised positions, shared wall vertices, plus roads, rail and labels in the header), and `scripts/city/render-stills.mjs` renders the still image. `.github/workflows/build-city.yml` runs both on feature branches whenever the city code changes, or on demand from the Actions tab, and commits the results. Map data © OpenStreetMap contributors (ODbL); the credit is shown under the scene.
 
 ## Deploying
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Renders a still image of the city (public/city/still.webp).
-// They're shown while three.js loads, and instead of the live scene on devices
-// without WebGL or with little memory / data-saver on.
+// Renders the still image of the city (public/city/still.webp). It is what
+// phones, small tablets and weak devices see, and it shows on desktop while
+// three.js loads.
 //
 // Needs a built site served locally and Playwright:
 //   npm run build && npx http-server dist -p 5180 &   (any static server)
@@ -24,10 +24,11 @@ await mkdir(join(ROOT, 'public/city'), { recursive: true });
 {
   await page.goto(`${base}?3d`);
   await page.waitForSelector('[data-city].is-ready', { timeout: 30_000 });
-  // Only the city: transparent background, no pins, no fade mask.
+  // Only the city: transparent background, no pins, labels or hero text, no fade mask.
   await page.addStyleTag({
     content: `html, body, .hero { background: transparent !important; }
       .city-overlay, .city-credit, .hero__scene-fallback { display: none !important; }
+      .hero__inner, .site-header { visibility: hidden !important; }
       .hero__scene { mask-image: none !important; }`,
   });
   await page.waitForTimeout(500);
