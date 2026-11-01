@@ -29,23 +29,34 @@
     }
   }
 
+  // The visual (3D scene + its controls) fills the right part of the hero.
+  &__visual {
+    position: absolute;
+    inset: 0 0 0 44%;
+    z-index: 0;
+  }
   &__scene {
     position: absolute;
-    inset: 0 0 0 38%;
-    z-index: 0;
+    inset: 0;
     // Fade the scene into the page on the left so the text stays readable.
-    mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
-    canvas {
-      width: 100% !important;
-      height: 100% !important;
-      outline: none;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 12%);
+    touch-action: pan-y; // horizontal drags rotate the city, vertical ones scroll the page
+    cursor: grab;
+    &.is-dragging {
+      cursor: grabbing;
     }
   }
   &__scene-fallback {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center left;
+    background: var(--still-a) center / contain no-repeat;
+    transition: opacity 0.8s var(--ease);
+  }
+  &__scene[data-version='b'] &__scene-fallback {
+    background-image: var(--still-b);
+  }
+  &__scene.is-ready &__scene-fallback {
+    opacity: 0;
   }
 
   &__stats {
@@ -80,11 +91,13 @@
       min-height: 0;
       padding-block: var(--s-5) var(--s-7);
     }
-    &__scene {
+    &__visual {
       position: relative;
       inset: auto;
-      height: clamp(16rem, 60vw, 26rem);
-      mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+      height: clamp(18rem, 75vw, 30rem);
+    }
+    &__scene {
+      mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
     }
   }
 }
@@ -242,5 +255,148 @@
     border: 1px solid var(--sand-200);
     font-size: 0.875rem;
     color: var(--ink-2);
+  }
+}
+
+// ---- 3D city -----------------------------------------------------------------
+.city-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  .is-ready > & {
+    opacity: 1;
+  }
+}
+
+.city-pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.city-pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  // anchor the bottom tip of the pin on the projected point
+  margin: -2.6rem 0 0 -1.1rem;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: opacity 0.6s var(--ease);
+  will-change: transform;
+
+  &__dot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: var(--green-900);
+    color: #fff;
+    box-shadow: 0 6px 14px rgb(24 41 31 / 35%);
+    transition: transform 0.2s var(--ease), background-color 0.2s;
+    svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      transform: rotate(45deg);
+    }
+  }
+  &__label {
+    display: grid;
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    box-shadow: var(--shadow-2);
+    color: var(--ink-2);
+    font-size: 0.8rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s, transform 0.2s var(--ease);
+    pointer-events: none;
+    strong {
+      font-family: var(--font-head);
+      color: var(--green-950);
+      font-size: 0.9rem;
+    }
+  }
+  &:hover {
+    z-index: 10000 !important;
+    .city-pin__dot {
+      background: var(--amber);
+      transform: rotate(-45deg) scale(1.12);
+    }
+    .city-pin__label {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.city-ui {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--s-5);
+  z-index: 2;
+  display: grid;
+  justify-items: end;
+  gap: var(--s-2);
+}
+.city-switch {
+  display: inline-flex;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 85%);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-2);
+  &[hidden] {
+    display: none;
+  }
+  button {
+    min-height: 2.25rem;
+    padding: 0 var(--s-4);
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font-family: var(--font-head);
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--ink-2);
+    cursor: pointer;
+    &[aria-pressed='true'] {
+      background: var(--green-900);
+      color: #fff;
+    }
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+}
+.city-credit {
+  margin: 0;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgb(255 255 255 / 80%);
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  &[hidden] {
+    display: none;
+  }
+}
+@media (max-width: #{$bp-lg - 0.01em}) {
+  .city-ui {
+    bottom: var(--s-3);
+  }
+  .city-pin__label {
+    display: none;
   }
 }
